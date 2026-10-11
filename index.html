@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NECTAR VPN — Подписка</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --success-color: #22c55e;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+        .logo {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        .status-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: #93c5fd;
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            margin-bottom: 12px;
+        }
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246,.3);
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+        .btn-secondary {
+            background-color: #334155;
+            color: var(--text-main);
+        }
+        .btn-secondary:hover {
+            background-color: #475569;
+        }
+        .btn-bot {
+            background-color: #22c55e;
+            color: white;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+        .btn-bot:hover {
+            background-color: #16a34a;
+        }
+        .footer {
+            margin-top: 24px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            background: #22c55e;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">🌿</div>
+            <h1>NECTAR VPN</h1>
+            <div class="subtitle">Ваш защищенный и быстрый доступ в интернет</div>
+            
+            <div class="status-box">
+                ⚡ Открытие приложения Happ...
+            </div>
+
+            <a href="#" id="happBtn" class="btn btn-primary">
+                🚀 Добавить в Happ
+            </a>
+
+            <button onclick="copySubUrl()" class="btn btn-secondary">
+                📋 Скопировать ссылку подписки
+            </button>
+
+            <a href="https://t.me/NECTARVPN_xbot" target="_blank" class="btn btn-bot">
+                🤖 Открыть бот поддержки
+            </a>
+        </div>
+
+        <div class="footer">
+            NECTAR VPN © 2026. Все права защищены.
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Ссылка скопирована в буфер обмена!</div>
+
+    <script>
+        // Замените ссылку ниже на вашу основную ссылку подписки из панели H1 Cloud:
+        const defaultSubUrl = 'https://kurban.free.h1cloud.net/sub/ВАШ_ТОКЕН';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const subUrl = urlParams.get('sub') || defaultSubUrl;
+
+        const happDeepLink = 'happ://add-sub?url=' + encodeURIComponent(subUrl);
+
+        document.getElementById('happBtn').href = happDeepLink;
+
+        // Автоматический редирект в приложение Happ при загрузке страницы
+        window.location.href = happDeepLink;
+
+        function copySubUrl() {
+            navigator.clipboard.writeText(subUrl).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
